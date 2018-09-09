@@ -1,74 +1,70 @@
-const $date = $('#date');
-const $time = $('#time');
-
 const weekdays = [1, 2, 3, 4, 5];
 const holidays = UltraDate.getHolidays();
-const defaultDate = getNextBusinessDay().format('YYYY-MM-DD');
-const defaultTime = '08:00';
 
-$date.val(defaultDate);
-$time.val(defaultTime);
+const app = new Vue({
+    el: '#app',
+    data: {
+        timer: null,
+        message: '00時間00分00秒',
+        date: moment().format('YYYY-MM-DD'),
+        time: '08:00'
+    },
+    mounted: function () {
+        this.init();
+        this.startTimer();
+    },
+    methods: {
+        init: function () {
+            // 翌営業日をセット
+            const now = moment();
+            const target = moment([this.date, this.time].join(' '), 'YYYY-MM-DD HH:mm');
+            let day = now;
 
-let timer = startTimer();
+            if (now >= target) {
+                day = now.add(1, 'days');
+            }
 
-$(document).on('change', 'input', (ev) => {
-    clearInterval(timer);
-    timer = startTimer();
+            while (!isBusinessDay(day)) {
+                day = day.add(1, 'days');
+            }
+
+            this.date = day.format('YYYY-MM-DD');
+        },
+
+        /**
+         * カウントダウンタイマーをリセット
+         */
+        restart: function () {
+            clearInterval(this.timer);
+            this.startTimer();
+        },
+
+        /**
+         * カウントダウンタイマーを開始
+         */
+        startTimer: function () {
+            this.timer = setInterval(() => {
+                const now = moment();
+                const targetDateTime = moment([this.date, this.time].join(' '), 'YYYY-MM-DD HH:mm');
+
+                const diff = { hours: 0, minutes: 0, seconds: 0 };
+                diff.hours = targetDateTime.diff(now, 'hours');
+                diff.minutes = targetDateTime.diff(now, 'minutes');
+                diff.seconds = targetDateTime.diff(now, 'seconds');
+
+                const hours = Math.floor(diff.seconds / 60 / 60);
+                const minutes = Math.floor(diff.seconds / 60) % 60;
+                const seconds = (diff.seconds % 60) % 60;
+
+                this.message = [
+                    `${sprintf('%02d', hours)}時間`,
+                    `${sprintf('%02d', minutes)}分`,
+                    `${sprintf('%02d', seconds)}秒`,
+                ].join("");
+            }, 100);
+        }
+    }
 });
-
-/**
- * カウントダウンタイマーを開始
- *
- * @returns {number}
- */
-function startTimer() {
-    return setInterval(() => {
-        const now = moment();
-        const targetDateTime = moment([$date.val(), $time.val()].join(' '), 'YYYY-MM-DD HH:mm');
-
-        const diff = { hours: 0, minutes: 0, seconds: 0 };
-        diff.hours = targetDateTime.diff(now, 'hours');
-        diff.minutes = targetDateTime.diff(now, 'minutes');
-        diff.seconds = targetDateTime.diff(now, 'seconds');
-
-        const hours = Math.floor(diff.seconds / 60 / 60);
-        const minutes = Math.floor(diff.seconds / 60) % 60;
-        const seconds = (diff.seconds % 60) % 60;
-
-        $('#output').text([
-            `${sprintf('%02d', hours)}時間`,
-            `${sprintf('%02d', minutes)}分`,
-            `${sprintf('%02d', seconds)}秒`,
-        ].join(""));
-
-        $('title').text([
-            `${sprintf('%02d', hours)}:`,
-            `${sprintf('%02d', minutes)}:`,
-            `${sprintf('%02d', seconds)}`,
-        ].join(""));
-    }, 1000);
-}
-
-/**
- * 翌営業日を取得
- *
- * @returns {*}
- */
-function getNextBusinessDay() {
-    const now = moment();
-    const target = moment([$date.val(), $time.val()].join(' '), 'YYYY-MM-DD HH:mm');
-    let day = now;
-
-    if (now >= target) {
-        day = now.add(1, 'days');
-    }
-
-    while (!isBusinessDay(day)) {
-        day = day.add(1, 'days');
-    }
-
-    return day;
-}
 
 /**
  *
