@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AC⚡CD</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="uikit/css/uikit.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="uikit/js/uikit.min.js"></script>
+    <script src="uikit/js/uikit-icons.min.js"></script>
+<body>
+<div class="uk-container uk-container-xsmall">
+    <div class="uk-section uk-section-default uk-section-xsmall">
+        <form action="">
+            <div class="uk-flex uk-flex-middle">
+                <div class="uk-inline" style="margin: 0 6px;">
+                    <span class="uk-form-icon" uk-icon="icon:calendar"></span>
+                    <input id="date" class="uk-input" name="date" type="date">
+                </div>
+                <div class="uk-inline" style="margin: 0 6px;">
+                    <span class="uk-form-icon" uk-icon="icon:clock"></span>
+                    <input id="time" class="uk-input" name="time" type="time" value="08:00">
+                </div>
+                <div class="uk-inline" style="margin: 0 6px;">まで</div>
+            </div>
+        </form>
+    </div>
+    <div class="uk-section uk-section-default uk-padding-remove-vertical">
+        <div id="output" class="uk-text-large"></div>
+    </div>
+</div>
+<script src="js/lib/lodash.min.js"></script>
+<script src="js/lib/jquery-3.3.1.min.js"></script>
+<script src="js/lib/moment.min.js"></script>
+<script src="js/lib/ja.js"></script>
+<script src="js/lib/sprintf.min.js"></script>
+<script src="js/lib/UltraDate.min.js"></script>
+<script src="js/lib/UltraDate.ja.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
