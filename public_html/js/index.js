@@ -76,7 +76,7 @@ function isBusinessDay(date) {
         return false;
     }
 
-    if (_.includes(_.keys(holidays), date.format('YYYY-MM-DD'))) {
+    if (_.includes(_.keys(holidays), date.format('YYYY/MM/DD'))) {
         return false;
     }
 
