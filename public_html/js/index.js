@@ -1,5 +1,18 @@
+const config = {
+    holidays: [
+        "2018/12/30",
+        "2018/12/31",
+        "2019/01/01",
+        "2019/01/02",
+        "2019/01/03",
+    ]
+};
 const weekdays = [1, 2, 3, 4, 5];
-const holidays = _.merge(UltraDate.getHolidays(), UltraDate.getHolidays(moment().format('YYYY') - 0 + 1));
+const holidays = (function (userDefined) {
+    const current = _.keys(UltraDate.getHolidays());
+    const next = _.keys(UltraDate.getHolidays(moment().format('YYYY') - 0 + 1));
+    return _.sortBy(_.union(current, next, userDefined));
+}(config.holidays));
 
 const app = new Vue({
     el: '#app',
@@ -76,7 +89,7 @@ function isBusinessDay(date) {
         return false;
     }
 
-    if (_.includes(_.keys(holidays), date.format('YYYY/MM/DD'))) {
+    if (_.includes(holidays, date.format('YYYY/MM/DD'))) {
         return false;
     }
 
