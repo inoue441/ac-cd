@@ -1,5 +1,5 @@
 const weekdays = [1, 2, 3, 4, 5];
-const holidays = UltraDate.getHolidays();
+const holidays = _.merge(UltraDate.getHolidays(), UltraDate.getHolidays(moment().format('YYYY') - 0 + 1));
 
 const app = new Vue({
     el: '#app',
@@ -21,7 +21,7 @@ const app = new Vue({
             let day = now;
 
             if (now >= target) {
-                day = now.add(1, 'days');
+                day = day.add(1, 'days');
             }
 
             while (!isBusinessDay(day)) {
