@@ -13,21 +13,21 @@
     <div class="uk-container uk-container-xsmall">
         <div class="uk-section uk-section-default uk-section-xsmall">
             <form action="">
-                <div class="uk-flex uk-flex-middle">
-                    <div class="uk-inline" style="margin: 0 6px;">
+                <div class="uk-flex uk-flex-middle uk-flex-center">
+                    <div class="uk-inline" style="margin: 0 3px;">
                         <span class="uk-form-icon" uk-icon="icon:calendar"></span>
-                        <input id="date" v-model="date" v-on:change="restart" class="uk-input" name="date" type="date">
+                        <input id="date" v-model="date" v-on:change="restart" class="uk-input uk-form-width-medium" name="date" type="date">
                     </div>
-                    <div class="uk-inline" style="margin: 0 6px;">
+                    <div class="uk-inline" style="margin: 0 3px;">
                         <span class="uk-form-icon" uk-icon="icon:clock"></span>
-                        <input id="time" v-model="time" v-on:change="restart" class="uk-input" name="time" type="time" value="08:00">
+                        <input id="time" v-model="time" v-on:change="restart" class="uk-input uk-form-width-small" name="time" type="time" value="08:00">
                     </div>
-                    <div class="uk-inline" style="margin: 0 6px;">まで</div>
+                    <div class="uk-inline" style="margin: 0 3px;">まで</div>
                 </div>
             </form>
         </div>
-        <div class="uk-section uk-section-default uk-padding-remove-vertical">
-            <div id="output" class="uk-text-large">{{ message }}</div>
+        <div class="uk-section uk-section-default uk-padding-remove-vertical uk-text-center">
+            <div id="output" class="uk-text-large uk-text-bold">{{ message }}</div>
         </div>
     </div>
 </div>
